@@ -245,7 +245,7 @@ In many cases within the setup for certain multiplayer objects, it was not possi
 As well as providing consultation advice to the artists as they were animating, I was responsible for setting up the animation state machines that would link their animations into the blueprint code. This involved defining the graph of connections between animation states, determining what the conditions should be to move into and out of those states and finally to set up notifications within the animations themselves.
 
 ![alt text](https://github.com/SparkingWater/TheFeeblePath/blob/7118a2d56c69fb1f9837854821b01adb0b221162/Reports/Images/BP_Anim2_Wizard.png "Wizard animation state graph")  
-![alt text](https://github.com/SparkingWater/TheFeeblePath/blob/7118a2d56c69fb1f9837854821b01adb0b221162/Reports/Images/BP_Anim2_Knight.png "Knight animation state graph")  
+![alt text](https://github.com/SparkingWater/TheFeeblePath/blob/7118a2d56c69fb1f9837854821b01adb0b221162/Reports/Images/BP_Anim3_Knight.png "Knight animation state graph")  
 ![alt text](https://github.com/SparkingWater/TheFeeblePath/blob/7118a2d56c69fb1f9837854821b01adb0b221162/Reports/Images/BP_Anim4_condition.png "Example condition change for an animation state swap")  
 
 Notifications enable frame specific behaviours to trigger, such as activating the wizard’s shield at the moment that his gesture suggests, without hard coding in a delay. This gives greater flexibility for the animation to be updated and for the designer to then appropriately update the notification’s frame reference themselves. When triggered, these notifications can play a sound or call a linked function.
