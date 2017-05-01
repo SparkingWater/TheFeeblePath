@@ -8,16 +8,16 @@
 ## Team
 
 **MA:**   
-Pablo Larenas Henríquez
-HungLi (Leo Cho)
-Faris Omar
+Pablo Larenas Henríquez  
+HungLi (Leo Cho)  
+Faris Omar  
 
 **MSc:**  
-Nikita Veselov
-Abdullah bin Abdullah
-Matthew Duddington
+Nikita Veselov  
+Abdullah bin Abdullah  
+Matthew Duddington  
 
-(Additional assistance from Witek Gawlowski)
+(Additional assistance from Witek Gawlowski)  
 
 --------------------------------------------------------------------------------
 
@@ -170,25 +170,25 @@ Below I will provide some extracted examples of how this was manifest within my 
 
 In order to cleanly call interactive objects, a parent class was setup with behaviour to be inherited. This abstracted the common functionality of checking for player proximity, handling interaction calls on the object and gating the updating of it’s rep-notify state variables.
 
-![alt text](https://github.com/SparkingWater/TheFeeblePath/blob/7118a2d56c69fb1f9837854821b01adb0b221162/Reports/Images/BP_Interactive_trigger.png “Interactive objects blueprint - Trigger element")  
+![alt text](https://github.com/SparkingWater/TheFeeblePath/blob/7118a2d56c69fb1f9837854821b01adb0b221162/Reports/Images/BP_Interactive_trigger.png "Interactive objects blueprint - Trigger element")  
 
 Similarly the calling of connected objects was also handled via an inherited function.
 
-![alt text](https://github.com/SparkingWater/TheFeeblePath/blob/7118a2d56c69fb1f9837854821b01adb0b221162/Reports/Images/BP_Interactive_connected.png “Interactive objects blueprint - Connected objects element")  
+![alt text](https://github.com/SparkingWater/TheFeeblePath/blob/7118a2d56c69fb1f9837854821b01adb0b221162/Reports/Images/BP_Interactive_connected.png "Interactive objects blueprint - Connected objects element")  
 
 The calling of the interaction is carried out within the player character blueprint, where it is replicated from the client, upwards to the server.
 
-![alt text](https://github.com/SparkingWater/TheFeeblePath/blob/7118a2d56c69fb1f9837854821b01adb0b221162/Reports/Images/BP_Player_character_interactive_handling.png “Player character blueprint - Handling of interactive objects element")  
+![alt text](https://github.com/SparkingWater/TheFeeblePath/blob/7118a2d56c69fb1f9837854821b01adb0b221162/Reports/Images/BP_Player_character_interactive_handling.png "Player character blueprint - Handling of interactive objects element")  
 
 Within a specific interactive object without onward connected objects, such as a normal gate, this interaction call would simply run the aesthetic reaction on all clients (in this case the gate opening), as the state of the door has already been decided by the server at this point, due to the inherited functions.
 
-![alt text](https://github.com/SparkingWater/TheFeeblePath/blob/7118a2d56c69fb1f9837854821b01adb0b221162/Reports/Images/BP_Player_character_interactive_handling.png “Gate blueprint - Interaction outcome")  
-![alt text](https://github.com/SparkingWater/TheFeeblePath/blob/7118a2d56c69fb1f9837854821b01adb0b221162/Reports/Images/Interactive_objects2.png “Gate interactive object")  
+![alt text](https://github.com/SparkingWater/TheFeeblePath/blob/7118a2d56c69fb1f9837854821b01adb0b221162/Reports/Images/BP_Player_character_interactive_handling.png "Gate blueprint - Interaction outcome")  
+![alt text](https://github.com/SparkingWater/TheFeeblePath/blob/7118a2d56c69fb1f9837854821b01adb0b221162/Reports/Images/Interactive_objects2.png "Gate interactive object")  
 
-Similarly, interactive objects that have onward connections, such as a lever or button, both carry out their aesthetic reaction on all clients, and attempt to trigger the inherited connected objects function (seen earlier) which, because of its “Switch: Has Authority" node, will only continue to run on the server.
+Similarly, interactive objects that have onward connections, such as a lever or button, both carry out their aesthetic reaction on all clients, and attempt to trigger the inherited connected objects function (seen earlier) which, because of its "Switch: Has Authority" node, will only continue to run on the server.
 
-![alt text](https://github.com/SparkingWater/TheFeeblePath/blob/7118a2d56c69fb1f9837854821b01adb0b221162/Reports/Images/BP_lever.png “Switch, button and spikes interactive objects") 
-![alt text](https://github.com/SparkingWater/TheFeeblePath/blob/7118a2d56c69fb1f9837854821b01adb0b221162/Reports/Images/Interactive_objects1.png “Switch, button and spikes interactive objects")  
+![alt text](https://github.com/SparkingWater/TheFeeblePath/blob/7118a2d56c69fb1f9837854821b01adb0b221162/Reports/Images/BP_lever.png "Switch, button and spikes interactive objects") 
+![alt text](https://github.com/SparkingWater/TheFeeblePath/blob/7118a2d56c69fb1f9837854821b01adb0b221162/Reports/Images/Interactive_objects1.png "Switch, button and spikes interactive objects")  
 
 Spikes and pillars have similar theories behind them. Unique qualities needing solutions for these were an interruptible animation that needed to cycle in sync for the spikes, and synchronised particle spawn and sound effects for the pillar.  
 
@@ -202,54 +202,54 @@ From this I had the lesson reinforced for me that abstraction should be used whe
 
 During the refactoring, I retained some high level ideas from Nikita’s approach, such as sharing a cool down inherited function and handling a queryable, skill level awareness of its current state.
 
-![alt text](https://github.com/SparkingWater/TheFeeblePath/blob/7118a2d56c69fb1f9837854821b01adb0b221162/Reports/Images/BP_Skill_parent_tick.png “Parent skill cool down tick function")  
-![alt text](https://github.com/SparkingWater/TheFeeblePath/blob/7118a2d56c69fb1f9837854821b01adb0b221162/Reports/Images/BP_Skill_parent_use.png “Parent skill use functioning state recording")  
+![alt text](https://github.com/SparkingWater/TheFeeblePath/blob/7118a2d56c69fb1f9837854821b01adb0b221162/Reports/Images/BP_Skill_parent_tick.png "Parent skill cool down tick function")  
+![alt text](https://github.com/SparkingWater/TheFeeblePath/blob/7118a2d56c69fb1f9837854821b01adb0b221162/Reports/Images/BP_Skill_parent_use.png "Parent skill use functioning state recording")  
 
 As with the interactive objects, a ‘use’ call on a skill would run the connected behaviours in the relevant child class. In the case of the Fireball Skill, this spawned a fireball that was oriented towards the mouse cursor, raycast hit-point from the cameras perspective. This raycast had to be conducted on the specific client, as it was input specific, otherwise the function would appear to work correctly on the server, but on the client would always aim the fireball at [0,0,0]. 
 
-![alt text](https://github.com/SparkingWater/TheFeeblePath/blob/7118a2d56c69fb1f9837854821b01adb0b221162/Reports/Images/BP_Fire_skill.png “Fire skill use call") 
+![alt text](https://github.com/SparkingWater/TheFeeblePath/blob/7118a2d56c69fb1f9837854821b01adb0b221162/Reports/Images/BP_Fire_skill.png "Fire skill use call") 
 
 For the calling of skills, here the input handling needed to be processed on the client side and then passed as quickly as possible to the server to make decisions. Each character has an enum of their possible skills and a record of the active choice, when the player makes an input, this is filtered through the local record of the active ability and then the relevant server call is made. The server then handles the decision on whether the skill is actually ‘useable’ (shown earlier) and, if so, runs the relevant functions to handle this, some of which are then replicated back down to the client.
 
-![alt text](https://github.com/SparkingWater/TheFeeblePath/blob/7118a2d56c69fb1f9837854821b01adb0b221162/Reports/Images/BP_Wizard_skills.png “Wizard skills extract showing client to server input replication calls")  
+![alt text](https://github.com/SparkingWater/TheFeeblePath/blob/7118a2d56c69fb1f9837854821b01adb0b221162/Reports/Images/BP_Wizard_skills.png "Wizard skills extract showing client to server input replication calls")  
 
 An element I had less experience of in Telement was linking the UI reactions to the world / player state variables. Because I was the most familiar with how the multiplayer system was functioning, I also handled this linking process. For the most part this was straightforward as the ‘active skill’ was always stored locally to the client.
 
 However, getting the other player’s health to show alongside the owned player’s heath was more difficult, as this value was owned by another client’s object. I overcame this issue by having the player health updates, which needed to be handled on the server anyway, also update a shared blackboard space value that was precomputed into a percentage and thus could simply be absorbed by the UI each tick.
 
-![alt text](https://github.com/SparkingWater/TheFeeblePath/blob/7118a2d56c69fb1f9837854821b01adb0b221162/Reports/Images/BP_Widget_menu_example.png “UI menu icon updater")  
-![alt text](https://github.com/SparkingWater/TheFeeblePath/blob/7118a2d56c69fb1f9837854821b01adb0b221162/Reports/Images/BP_3rd_person_health.png “Health handler function for characters")  
+![alt text](https://github.com/SparkingWater/TheFeeblePath/blob/7118a2d56c69fb1f9837854821b01adb0b221162/Reports/Images/BP_Widget_menu_example.png "UI menu icon updater")  
+![alt text](https://github.com/SparkingWater/TheFeeblePath/blob/7118a2d56c69fb1f9837854821b01adb0b221162/Reports/Images/BP_3rd_person_health.png "Health handler function for characters")  
 
 ### Multiplayer loading / tracking
 
 For the actual loading of players into the same world, we used the Unreal session handling nodes. I had some difficulty with getting this to work consistently across different network situations, so for our demo and MVP we relied on running both game instances on the same computer and connecting to local host.
 
-![alt text](https://github.com/SparkingWater/TheFeeblePath/blob/7118a2d56c69fb1f9837854821b01adb0b221162/Reports/Images/BP_game_sessions.png “Unreal session handling setup")  
+![alt text](https://github.com/SparkingWater/TheFeeblePath/blob/7118a2d56c69fb1f9837854821b01adb0b221162/Reports/Images/BP_game_sessions.png "Unreal session handling setup")  
 
 The OnPostLogin function was used to keep a reference to each unique player and to enable to game to determine when both players were ready to spawn.
 
-![alt text](https://github.com/SparkingWater/TheFeeblePath/blob/7118a2d56c69fb1f9837854821b01adb0b221162/Reports/Images/BP_Game_mode_tracking.png “OnPostLogin event handling")  
+![alt text](https://github.com/SparkingWater/TheFeeblePath/blob/7118a2d56c69fb1f9837854821b01adb0b221162/Reports/Images/BP_Game_mode_tracking.png "OnPostLogin event handling")  
 
 Spawning was handled by the GameMode object on the server, with the character actors instantiated first and then each player assigned to posses one of those actor pawns. This code went through several substantial iteration changes in order to discover the most reliable method for our needs.
 
-![alt text](https://github.com/SparkingWater/TheFeeblePath/blob/7118a2d56c69fb1f9837854821b01adb0b221162/Reports/Images/BP_Game_mode_spawn_v1.png “Spawn event version 1")  
-![alt text](https://github.com/SparkingWater/TheFeeblePath/blob/7118a2d56c69fb1f9837854821b01adb0b221162/Reports/Images/BP_Game_mode_spawn_v3.png “Spawn event version 3")  
-![alt text](https://github.com/SparkingWater/TheFeeblePath/blob/7118a2d56c69fb1f9837854821b01adb0b221162/Reports/Images/BP_Game_mode_spawn_v5.png “Spawn event version 5")  
+![alt text](https://github.com/SparkingWater/TheFeeblePath/blob/7118a2d56c69fb1f9837854821b01adb0b221162/Reports/Images/BP_Game_mode_spawn_v1.png "Spawn event version 1")  
+![alt text](https://github.com/SparkingWater/TheFeeblePath/blob/7118a2d56c69fb1f9837854821b01adb0b221162/Reports/Images/BP_Game_mode_spawn_v3.png "Spawn event version 3")  
+![alt text](https://github.com/SparkingWater/TheFeeblePath/blob/7118a2d56c69fb1f9837854821b01adb0b221162/Reports/Images/BP_Game_mode_spawn_v5.png "Spawn event version 5")  
 
 In many cases within the setup for certain multiplayer objects, it was not possible to know precisely how long it would take for both copies of the world to finish initialising. So in several cases a null check delay loop was inserted to ensure the necessary variable would be set before the game could start.
 
-![alt text](https://github.com/SparkingWater/TheFeeblePath/blob/7118a2d56c69fb1f9837854821b01adb0b221162/Reports/Images/BP_example_non_null_loop.png “Null check delay loop")  
+![alt text](https://github.com/SparkingWater/TheFeeblePath/blob/7118a2d56c69fb1f9837854821b01adb0b221162/Reports/Images/BP_example_non_null_loop.png "Null check delay loop")  
 
 ### Animation State Machines 
 
 As well as providing consultation advice to the artists as they were animating, I was responsible for setting up the animation state machines that would link their animations into the blueprint code. This involved defining the graph of connections between animation states, determining what the conditions should be to move into and out of those states and finally to set up notifications within the animations themselves.
 
-![alt text](https://github.com/SparkingWater/TheFeeblePath/blob/7118a2d56c69fb1f9837854821b01adb0b221162/Reports/Images/BP_Anim2_Wizard.png “Wizard animation state graph")  
-![alt text](https://github.com/SparkingWater/TheFeeblePath/blob/7118a2d56c69fb1f9837854821b01adb0b221162/Reports/Images/BP_Anim2_Knight.png “Knight animation state graph")  
-![alt text](https://github.com/SparkingWater/TheFeeblePath/blob/7118a2d56c69fb1f9837854821b01adb0b221162/Reports/Images/BP_Anim4_condition.png “Example condition change for an animation state swap")  
+![alt text](https://github.com/SparkingWater/TheFeeblePath/blob/7118a2d56c69fb1f9837854821b01adb0b221162/Reports/Images/BP_Anim2_Wizard.png "Wizard animation state graph")  
+![alt text](https://github.com/SparkingWater/TheFeeblePath/blob/7118a2d56c69fb1f9837854821b01adb0b221162/Reports/Images/BP_Anim2_Knight.png "Knight animation state graph")  
+![alt text](https://github.com/SparkingWater/TheFeeblePath/blob/7118a2d56c69fb1f9837854821b01adb0b221162/Reports/Images/BP_Anim4_condition.png "Example condition change for an animation state swap")  
 
 Notifications enable frame specific behaviours to trigger, such as activating the wizard’s shield at the moment that his gesture suggests, without hard coding in a delay. This gives greater flexibility for the animation to be updated and for the designer to then appropriately update the notification’s frame reference themselves. When triggered, these notifications can play a sound or call a linked function.
 
-![alt text](https://github.com/SparkingWater/TheFeeblePath/blob/7118a2d56c69fb1f9837854821b01adb0b221162/Reports/Images/BP_Anim1.png “Wizard animation event connections") 
+![alt text](https://github.com/SparkingWater/TheFeeblePath/blob/7118a2d56c69fb1f9837854821b01adb0b221162/Reports/Images/BP_Anim1.png "Wizard animation event connections") 
 
 
