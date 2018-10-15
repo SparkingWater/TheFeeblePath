@@ -117,7 +117,7 @@ Whilst I was not on the AI module this year, and, thus, the two major parts of t
 My work with the design and art team was largely coordinated through Pablo, with occasional video calls to Leo to speak about Animation approach and improvements. During the first few weeks, I focused on the high level design of the game with the team, helping Pablo to guide the different ideas into potential game mechanic models. Due to the more ambitious requirements for the technical outcomes of this project, we were acutely aware of the need for design and programming to communicate effectively during the planning stage in order to produce a schematic that would be achievable by both halves of the team.
 
 *Simplified demo level developed for the MVP*  
-![alt text](https://github.com/SparkingWater/TheFeeblePath/blob/52a06c0f1ab4c7596dc5f2699a34cc88cb43684d/Reports/Images/Demo_level1.png “Demo level birdseye") 
+![alt text](https://github.com/SparkingWater/TheFeeblePath/blob/52a06c0f1ab4c7596dc5f2699a34cc88cb43684d/Reports/Images/Demo_level1.png "Demo level birdseye") 
 
 Previously, I had worked as a project manager during the Global Game Jam event (which was described as a part of my earlier coursework). This role was suggested again for this team, however, while I was happy to fulfil that capacity, once Nikita had joined our team, I elected to hand the primary direction of the programming team to him, as he was particularly keen to practice this skill. Thus, while I maintained by role in tandem with Pablo, where more complex communication and coordination between art and programming teams was necessary, the main responsibility for programmer organisation was given to Nikita. However, in the final stages, this became slightly more blurry again, as Nikita gained an internship and had to excuse himself from some periods of the work process, and so I picked up some aspects of the programmer overseeing at that point.
 
@@ -134,7 +134,7 @@ As mentioned above, my programming work on this project was predominantly focuse
 
 - Interactive trap / obstacle implementation  
 - Character skill implementation  
-- Animation state machine linking  
+- Animation state linking  
 - Multiplayer adaptation of blueprints  
 
 Because I had worked with similar ‘traps’ in the previous Telement project, this time around I was challenged to adapt the single player and discreet approach taken last time, to an abstract / inherited and multi-player implementation.
@@ -242,10 +242,8 @@ In many cases within the setup for certain multiplayer objects, it was not possi
 
 ### Animation State Machines 
 
-As well as providing consultation advice to the artists as they were animating, I was responsible for setting up the animation state machines that would link their animations into the blueprint code. This involved defining the graph of connections between animation states, determining what the conditions should be to move into and out of those states and finally to set up notifications within the animations themselves.
-
-![alt text](https://github.com/SparkingWater/TheFeeblePath/blob/7118a2d56c69fb1f9837854821b01adb0b221162/Reports/Images/BP_Anim2_Wizard.png "Wizard animation state graph")  
-![alt text](https://github.com/SparkingWater/TheFeeblePath/blob/7118a2d56c69fb1f9837854821b01adb0b221162/Reports/Images/BP_Anim3_Knight.png "Knight animation state graph")  
+As well as providing consultation advice to the artists as they were animating, I was responsible for setting up the animation states that would link their animations into the blueprint code and to set up notifications within the animations themselves.
+  
 ![alt text](https://github.com/SparkingWater/TheFeeblePath/blob/7118a2d56c69fb1f9837854821b01adb0b221162/Reports/Images/BP_Anim4_condition.png "Example condition change for an animation state swap")  
 
 Notifications enable frame specific behaviours to trigger, such as activating the wizard’s shield at the moment that his gesture suggests, without hard coding in a delay. This gives greater flexibility for the animation to be updated and for the designer to then appropriately update the notification’s frame reference themselves. When triggered, these notifications can play a sound or call a linked function.
