@@ -3,6 +3,10 @@
 
 ![alt text](https://github.com/SparkingWater/TheFeeblePath/blob/7118a2d56c69fb1f9837854821b01adb0b221162/Reports/Images/Title.png "The Feeble Path")
 
+[![The Feeble Path YouTube video link](https://img.youtube.com/vi/zPGaYThGUhA/0.jpg)](https://www.youtube.com/watch?v=zPGaYThGUhA)
+
+Project video: www.youtube.com/watch?v=zPGaYThGUhA
+
 --------------------------------------------------------------------------------
 
 ## Team
